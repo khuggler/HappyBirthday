@@ -4,12 +4,12 @@
 \name{happybirthday-package}
 \alias{happybirthday}
 \alias{happybirthday-package}
-\title{happybirthday: What the Package Does (One Line, Title Case)}
+\title{happybirthday: Estimate movement metrics and create reports for bighorn sheep}
 \description{
-What the package does (one paragraph).
+This package will download and clean gps data as well as create movement metrics and estimate parturition dates for bighorn sheep
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Katey Huggler \email{khuggler@uidaho.edu} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
 
 }
 \keyword{internal}
