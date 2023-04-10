@@ -1,0 +1,14 @@
+Package: happybirthday
+Title: Estimate movement metrics and create reports for bighorn sheep
+Version: 0.0.0.9000
+Authors@R: 
+    person("Katey", "Huggler", , "khuggler@uidaho.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package will download and clean gps data as well as create movement metrics and estimate parturition dates for bighorn sheep
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
