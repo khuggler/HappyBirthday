@@ -24,4 +24,6 @@ Imports:
     purrr,
     assertthat,
     amt,
-    adehabitatHR
+    adehabitatHR,
+    recurse,
+    zoo
