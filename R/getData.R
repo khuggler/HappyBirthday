@@ -1,7 +1,7 @@
 #' @title getData
 #' @description This function downloads GPS data for a specified population and appends animal IDs
 #' @param id_df data.frame that has the animal ids and serial numbers
-#' @param tempdir character. path to temporary directory for files to be saved. If this path does not exist it will be created for you.  
+#' @param tempdir character. path to temporary directory for telonics files to be saved. If this file in the path does not exist it will be created for you. Default is NA. 
 #' @param veckeys if Vectronic data is downloaded, path to Vectronic keys is needed, Default: NA
 #' @return Returns a data.frame with all gps data for a particular study area
 #' @details DETAILS
@@ -20,7 +20,7 @@
 #' @importFrom processx run
 #' @importFrom collar ats_login get_paths fetch_vectronics
 #' @importFrom dplyr bind_rows
-getData<-function(id_df, tempdir, veckeys = NA){
+getData<-function(id_df, tempdir = NA, veckeys = NA){
   
   if(!dir.exists(tempdir)){
     dir.create(tempdir)
@@ -98,11 +98,6 @@ if('Telonics' %in% mans){
       # I always try to avoid deleting raw data (you never know when you will need it) so I will create a new DateTime Column
       df.i$GPS.Fix.Time = as.POSIXct(df.i$GPS.Fix.Time, format="%Y.%m.%d %H:%M:%S", tz = "UTC")
       
-      
-      if(is.null(start_date)==FALSE){
-        # reduce to specified start date
-        df.i <- df.i[df.i$GPS.Fix.Time >= start_date,]
-      }
       
       return(df.i)
     }))
