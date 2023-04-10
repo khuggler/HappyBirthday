@@ -130,7 +130,7 @@ icon.inactive <- makeAwesomeIcon(icon = "star", markerColor = "lightgray", spin=
 
 
 
-sheepmap<-gpsdat[gpsdat$tdate>= Sys.time()-luridate::days(3),]
+sheepmap<-gpsdat[gpsdat$tdate>= Sys.time()-lubridate::days(3),]
 sheepmap<-sheepmap[complete.cases(sheepmap$x),]
 uni<-unique(sheepmap$AID)
 sheepmap$popup<-paste0(signif(sheepmap$y, digits = 6), ",", signif(sheepmap$x, digits = 7))
