@@ -4,12 +4,12 @@
 \alias{getData}
 \title{getData}
 \usage{
-getData(id_df, tempdir, veckeys = NA)
+getData(id_df, tempdir = NA, veckeys = NA)
 }
 \arguments{
 \item{id_df}{data.frame that has the animal ids and serial numbers}
 
-\item{tempdir}{character. path to temporary directory for files to be saved. If this path does not exist it will be created for you.}
+\item{tempdir}{character. path to temporary directory for telonics files to be saved. If this file in the path does not exist it will be created for you. Default is NA.}
 
 \item{veckeys}{if Vectronic data is downloaded, path to Vectronic keys is needed, Default: NA}
 }

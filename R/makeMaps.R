@@ -26,6 +26,8 @@
 #' @importFrom htmlwidgets saveWidget
 makeMaps<-function(tempdir, gpsdat, id_df){
   
+  require(leaflet)
+
   tempdir = paste0(tempdir, "/", 'Products/')
   
   assertthat::assert_that(class(gpsdat$tdate)[1] == "POSIXct", msg = "TelemDate column must be in POSIXct format")
@@ -113,7 +115,7 @@ rgdal::writeOGR(lastpoint,paste(tempdir,'LatestLocs.gpx',sep=''),layer='locs',dr
 
 
 
-pal <- colorFactor(palette = 'Paired',domain = gpsdat$AID)
+pal <- leaflet::colorFactor(palette = 'Paired',domain = gpsdat$AID)
 
 #create custom icons for most recent locations
 icon.active <- makeAwesomeIcon(icon = "star", markerColor = "lightgray", spin=TRUE,

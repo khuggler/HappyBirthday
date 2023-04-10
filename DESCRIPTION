@@ -22,4 +22,6 @@ Imports:
     DT,
     htmlwidgets,
     purrr,
-    assertthat
+    assertthat,
+    amt,
+    adehabitatHR
