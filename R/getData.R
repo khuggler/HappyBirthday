@@ -22,6 +22,9 @@
 #' @importFrom dplyr bind_rows
 getData<-function(id_df, tempdir = NA, veckeys = NA){
   
+  require(dplyr)
+  require(collar)
+  
   if(!dir.exists(tempdir)){
     dir.create(tempdir)
   }
@@ -128,16 +131,16 @@ if('Telonics' %in% mans){
     sns<-id_df[id_df$Brand == "ATS",]$Serial
     sns<-paste0("0", sns) # missing leading zero
     
-    out.acct.1 <- fetch_ats_positions(device_id = sns)
+    out.acct.1 <- collar::fetch_ats_positions(device_id = sns)
     ats_logout()
     
     
     collar::ats_login("HO16507MI", "A1wS7Y%L")
-    out.acct.2 <- fetch_ats_positions(device_id = sns)
+    out.acct.2 <- collar::fetch_ats_positions(device_id = sns)
     ats_logout()
     
     ats_login("MI18093KE", "L8gE8W%L") 
-    out.acct.3 <- fetch_ats_positions(device_id = sns)
+    out.acct.3 <- collar::fetch_ats_positions(device_id = sns)
     ats_logout()
     
     # ats timezones are programmed to individual collars, all of our as of Jan 2021 are programmed to Pacific time

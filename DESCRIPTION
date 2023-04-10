@@ -15,4 +15,11 @@ Config/testthat/edition: 3
 Imports: 
     dplyr,
     collar,
-    processx
+    processx,
+    rgdal,
+    sp,
+    leaflet,
+    DT,
+    htmlwidgets,
+    purrr,
+    assertthat
