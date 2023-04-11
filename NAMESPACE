@@ -2,6 +2,7 @@
 
 export(getData)
 export(makeMaps)
+export(makeMarkdown)
 export(moveMetrics)
 importFrom(adehabitatHR,mcp.area)
 importFrom(amt,make_track)
