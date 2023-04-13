@@ -121,6 +121,10 @@ movedata2<-data.frame()
 for(k in 1:length(uni)){
   sub<-movedata[movedata$id == uni[k],]
   
+  if(inc < 5){
+    inc = 5
+  }
+  
   # sequence of row ids
   s1<-seq(1, nrow(sub)-inc, 1)
   s2<-seq(inc, nrow(sub),1)
