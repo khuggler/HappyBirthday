@@ -111,7 +111,6 @@ proj4string(movedata)<-proj4string(sheep.utm)
 uni<-unique(movedata$id)
 
 
-#' incremental HR size
 
 inc<-round(24/mean(movedata$timediff, na.rm = T))
 
