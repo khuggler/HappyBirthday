@@ -4,7 +4,15 @@
 \alias{getData}
 \title{getData}
 \usage{
-getData(id_df, tempdir = NA, veckeys = NA)
+getData(
+  id_df,
+  tempdir = NA,
+  veckeys = NA,
+  lotek_usrs = NA,
+  lotek_pass = NA,
+  ATS_usrs = NA,
+  ATS_pass = NA
+)
 }
 \arguments{
 \item{id_df}{data.frame that has the animal ids and serial numbers}
@@ -12,9 +20,17 @@ getData(id_df, tempdir = NA, veckeys = NA)
 \item{tempdir}{character. path to temporary directory for telonics files to be saved. If this file in the path does not exist it will be created for you. Default is NA.}
 
 \item{veckeys}{if Vectronic data is downloaded, path to Vectronic keys is needed, Default: NA}
+
+\item{lotek_usrs}{if lotek data is needed, vector of lotek usernames for download}
+
+\item{lotek_pass}{if lotek data is needed, vector of lotek passwords for download}
+
+\item{ATS_usrs}{if ATS data is needed, vector of ATS usernames}
+
+\item{ATS_pass}{if ATS data is needed, vectors of ATS passwords}
 }
 \value{
-Returns a data.frame with all gps data for a particular study area
+OUTPUT_DESCRIPTION
 }
 \description{
 This function downloads GPS data for a specified population and appends animal IDs
@@ -31,6 +47,6 @@ if(interactive()){
 }
 \seealso{
 \code{\link[processx]{run}}
-\code{\link[collar]{ats_login}}, \code{\link[collar]{get_paths}}, \code{\link[collar]{fetch_vectronics}}
-\code{\link[dplyr]{bind}}
+\code{\link[collar]{ats_login}}, \code{\link[collar]{fetch_ats_positions}}, \code{\link[collar]{ats_logout}}, \code{\link[collar]{get_paths}}, \code{\link[collar]{fetch_vectronics}}
+\code{\link[dplyr]{bind_rows}}
 }
