@@ -112,7 +112,6 @@ uni<-unique(movedata$id)
 
 
 #' incremental HR size
-#' ideally would want 24 hour home range, but some fix rates won't allow that--try to get as close as possible
 
 inc<-round(24/mean(movedata$timediff, na.rm = T))
 
