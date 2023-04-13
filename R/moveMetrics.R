@@ -111,13 +111,19 @@ proj4string(movedata)<-proj4string(sheep.utm)
 uni<-unique(movedata$id)
 
 
+#' incremental HR size
+#' ideally would want 24 hour home range, but some fix rates won't allow that--try to get as close as possible
+
+inc<-round(24/mean(movedata$timediff, na.rm = T))
+
+
 movedata2<-data.frame()
 for(k in 1:length(uni)){
   sub<-movedata[movedata$id == uni[k],]
   
   # sequence of row ids
-  s1<-seq(1, nrow(sub)-5, 1)
-  s2<-seq(5, nrow(sub),1)
+  s1<-seq(1, nrow(sub)-inc, 1)
+  s2<-seq(inc, nrow(sub),1)
   
   # add HR column
   sub$HR<-NA
