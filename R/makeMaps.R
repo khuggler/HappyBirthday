@@ -57,13 +57,13 @@ sp::coordinates(lastpoint)<-~x+y
 sp::proj4string(lastpoint)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' 
 
 names(lastpoint)[names(lastpoint) == 'AID']<-'name'
-rgdal::writeOGR(lastpoint["name"], paste(tempdir,'LatestLocs.kml',sep=''), layer = 'BHS', driver = "KML",
+rgdal::writeOGR(lastpoint["name"], paste(savedir,'LatestLocs.kml',sep=''), layer = 'BHS', driver = "KML",
                 overwrite = T)
 
 #lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
 lastpoint<-lastpoint[,names(lastpoint) == 'name']
 #names(lastpoint)[1]<-'Frequency'
-rgdal::writeOGR(lastpoint,paste(tempdir,'LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
+rgdal::writeOGR(lastpoint,paste(savedir,'LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
 
 
 
@@ -165,25 +165,10 @@ a<-a %>%
 
 #a<- a%>% addTitle(text=paste('Updated:', Sys.time()), color= "black", fontSize= "18px", leftPosition = 50, topPosition=2)
 # 
-# fls = dir(tempdir, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
-# unlink(fls, force=TRUE, recursive = TRUE)
-
-a1<-a
-a1$dependencies <- lapply(
-a$dependencies,
-  function(dep) {
-    # I use "" below but guessing that is not really the location
-    dep$src$href = "" # directory of your already saved dependency
-    dep$src$file = NULL
-    
-    return(dep)
-  })
 
 
-htmlwidgets::saveWidget(a1, file=paste(tempdir, "Last3Days_NoDepends.html", sep=""),
-                        title="SheepMovement", selfcontained=TRUE)
 
-htmlwidgets::saveWidget(a, file=paste(tempdir, "Last3Days.html", sep=""),
+htmlwidgets::saveWidget(a, file=paste(savedir, 'Last3Days.html', sep = " "),
                         title="SheepMovement", selfcontained=TRUE)
 
 
