@@ -26,7 +26,8 @@ Imports:
     amt,
     adehabitatHR,
     recurse,
-    zoo
+    zoo,
+    plyr
 Depends: 
     R (>= 2.10)
 LazyData: true
