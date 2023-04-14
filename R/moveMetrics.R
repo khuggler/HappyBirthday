@@ -34,9 +34,6 @@ trk<-gps |> amt::make_track(x, y, tdate, id = id, all_cols = TRUE)
 summ<-trk |>
   amt::summarize_sampling_rate_many(c("id"), units = "hours")
 
-#group by id and nest track
-
-trk<- trk|> amt::nest(data = -"id")
 
 # track_resample each individual to a constant movement rate 
 
