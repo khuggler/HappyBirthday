@@ -39,7 +39,7 @@ makeTables<-function(gpsdat, id_df, tempdir){
       all.locs<-rbind(sub, all.locs)
     }
     
-    all.locs<-all.locs[, c('VitFreq', 'Frequency', 'SN', 'Species', 'IdCol', 'AID', 'Sex', 'x', 'y')]
+    all.locs<-all.locs[, c('VitFreq', 'Frequency', 'SN', 'Species', 'IdCol', 'AID', 'Sex', 'x', 'y', 'tdate')]
     
     tabby.file<-paste0(tempdir, "/Tables")
     if(dir.exists(tabby.file)){
@@ -60,7 +60,7 @@ makeTables<-function(gpsdat, id_df, tempdir){
       
       sub<-sub[1:12,]
       
-      sub<-sub[, c('VitFreq', 'Frequency', 'SN', 'Species', 'IdCol', 'AID', 'Sex', 'x', 'y')]
+      sub<-sub[, c('VitFreq', 'Frequency', 'SN', 'Species', 'IdCol', 'AID', 'Sex', 'x', 'y', 'tdate')]
       
       outs<-rbind(outs, sub)
     }
