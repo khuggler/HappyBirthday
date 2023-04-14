@@ -1,4 +1,22 @@
+#' @title renderMarkdown
+#' @description render Rmarkdown file with plots and most recent locatiosn 
+#' @param tempdir temporary directory to store output
+#' @return returns a pdf in tempdir with all collated plots and recent locations
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[rmarkdown]{render}}
+#' @rdname renderMarkdown
+#' @export 
+#' @importFrom rmarkdown render
 renderMarkdown<-function(tempdir){
+  
+  data('ParturitionPlot.Rmd', package = "happybirthday")
   
   datastore<-paste0(tempdir, "/Tables/RecentLocs.RDS")
   prettydatastore<-paste0(tempdir, "/PrettyData/PrettyData.RDS")
