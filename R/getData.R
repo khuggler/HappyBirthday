@@ -157,14 +157,14 @@ if('Telonics' %in% mans){
                             "042803", "042804","046977","047204", "047205", "047207", "047208", "047212", "047213", "047214")
     programmed_mountain <- c("030230", "042800", "048782", "048783", "048784", "048785", "048786", "048787", "048788", "048789", "048790", "048791", "048792", "048793", "048794", "048796", "048797") # we can add collar ids as new collars are deployed
     
-    out <- dplyr::bind_rows(out.acct.1, out.acct.2, out.acct.3) 
+    #out <- dplyr::bind_rows(out.acct.1, out.acct.2, out.acct.3) 
     
-    out$JulianDay = formatC(out$JulianDay, width = 3, format = "d", flag = "0")
-    out$Hour = formatC(out$Hour, width = 2, format = "d", flag = "0")
-    out$Minute = formatC(out$Minute, width = 2, format = "d", flag = "0")
+    out.acct$JulianDay = formatC(out.acct$JulianDay, width = 3, format = "d", flag = "0")
+    out.acct$Hour = formatC(out.acct$Hour, width = 2, format = "d", flag = "0")
+    out.acct$Minute = formatC(out.acct$Minute, width = 2, format = "d", flag = "0")
     
     
-    ats <- out %>%
+    ats <- out.acct %>%
       rename(tdate = "DateLocal", SN = 'CollarSerialNumber', x = 'Longitude', y = 'Latitude') %>%
       select(SN, tdate, x, y)
     ats<-data.frame(ats)
