@@ -28,7 +28,7 @@ makeMaps<-function(tempdir, gpsdat, id_df){
   
   require(leaflet)
 
-  tempdir = paste0(tempdir, "/", 'Products/')
+  savedir = paste0(tempdir, "/", 'Products/')
   
   assertthat::assert_that(class(gpsdat$tdate)[1] == "POSIXct", msg = "TelemDate column must be in POSIXct format")
   
@@ -37,53 +37,7 @@ makeMaps<-function(tempdir, gpsdat, id_df){
   assertthat::assert_that('IdCol' %in% unique(names(id_df)), msg = "Lookup data must include IdCol")
   
   
-  # create temporrary directories for products to be stored
-  options(warn=-1)
-  if(dir.exists(tempdir) == TRUE){
-    llist<-list.files(tempdir,all.files=T,full.names=T)
-    for(i in 3:length(llist)){
-      file.remove(llist[i])
-    }
-    CleanRep<-paste0(tempdir,'CleaningReport.txt')
-    datastore<-paste0(tempdir,'datastore.RDS')
-    PrettyDataStore<-paste0(tempdir,'PrettyData.RDS')
-    plotfolder<-paste0(tempdir,'plots')
-    dir.create(plotfolder)
-    pdffolder<-paste0(tempdir,'PDFs')
-    dir.create(pdffolder)
-    plotdatapath<-paste0(tempdir,'PlotData')
-    #dir.create(plotdatapath)
-    
-  }
-  if(dir.exists(tempdir) == FALSE){
-    dir.create(tempdir)
-    CleanRep<-paste0(tempdir,'CleaningReport.txt')
-    datastore<-paste0(tempdir,'datastore.RDS')
-    PrettyDataStore<-paste0(tempdir,'PrettyData.RDS')
-    plotfolder<-paste0(tempdir,'plots')
-    dir.create(plotfolder)
-    pdffolder<-paste0(tempdir,'PDFs')
-    dir.create(pdffolder)
-    plotdatapath<-paste0(tempdir,"plots/",'PlotData')
-    #dir.create(plotdatapath)
-  }
-  options(warn=0)
   
-  
-  llist<-list.files(plotfolder,full.names=T)
-  if(length(llist)>0){
-    for(i in 1:length(llist)){
-      file.remove(llist[i])
-    }
-  }
-  llist<-list.files(pdffolder,full.names=T)
-  if(length(llist)>0){
-    for(i in 1:length(llist)){
-      file.remove(llist[i])
-    }
-  }
-  
-
 uni<-unique(gpsdat$AID)
 
 lastpoint<-data.frame()
@@ -210,6 +164,24 @@ a<-a %>%
 #a #plot
 
 #a<- a%>% addTitle(text=paste('Updated:', Sys.time()), color= "black", fontSize= "18px", leftPosition = 50, topPosition=2)
+# 
+# fls = dir(tempdir, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
+# unlink(fls, force=TRUE, recursive = TRUE)
+
+a1<-a
+a1$dependencies <- lapply(
+a$dependencies,
+  function(dep) {
+    # I use "" below but guessing that is not really the location
+    dep$src$href = "" # directory of your already saved dependency
+    dep$src$file = NULL
+    
+    return(dep)
+  })
+
+
+htmlwidgets::saveWidget(a1, file=paste(tempdir, "Last3Days_NoDepends.html", sep=""),
+                        title="SheepMovement", selfcontained=TRUE)
 
 htmlwidgets::saveWidget(a, file=paste(tempdir, "Last3Days.html", sep=""),
                         title="SheepMovement", selfcontained=TRUE)
