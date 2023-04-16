@@ -55,7 +55,7 @@ if('Telonics' %in% mans){
       stop("You must install the following packages: processx and sf")
     
     # some tests
-    if(length(dir(fldr_out))>0)
+    if(length(dir(fldr_out))>1)
       stop("Your fldr_out must be empty to proceed!")
     
     # create a reports folder
