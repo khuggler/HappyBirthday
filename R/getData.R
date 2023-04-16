@@ -129,8 +129,10 @@ if('Telonics' %in% mans){
   
   # remove all the temporary files if keep.reports = FALSE
   
-  fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
-  unlink(fls, force=TRUE, recursive = TRUE)
+  #fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
+  #unlink(fls, force=TRUE, recursive = TRUE)
+  
+  unlink(fldr_out, force = TRUE, recursive = TRUE)
   
 }
    
