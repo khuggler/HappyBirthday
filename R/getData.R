@@ -46,7 +46,7 @@ if('Telonics' %in% mans){
     keep.reports = FALSE
     
     # create a folder for telonics data to go
-    fldr_out<-paste0(tempdir, "/", 'Telonics')
+    fldr_out<-paste0(tempdir, "/", 'TelonicsGPSData')
     if(!dir.exists(fldr_out)){
       dir.create(fldr_out)
     }
@@ -125,16 +125,15 @@ if('Telonics' %in% mans){
     
     full.tel<-rbind(tel, full.tel)
     
-    unlink(fldr_out, force = TRUE, recursive = TRUE)
+
     
   }
   
   # remove all the temporary files if keep.reports = FALSE
   
-  #fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
-  #unlink(fls, force=TRUE, recursive = TRUE)
+  fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
+  unlink(fls, force=TRUE, recursive = TRUE)
   
-
   
 }
    
