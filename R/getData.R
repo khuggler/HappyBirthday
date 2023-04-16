@@ -125,6 +125,8 @@ if('Telonics' %in% mans){
     
     full.tel<-rbind(tel, full.tel)
     
+    unlink(fldr_out, force = TRUE, recursive = TRUE)
+    
   }
   
   # remove all the temporary files if keep.reports = FALSE
@@ -132,7 +134,7 @@ if('Telonics' %in% mans){
   #fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
   #unlink(fls, force=TRUE, recursive = TRUE)
   
-  unlink(fldr_out, force = TRUE, recursive = TRUE)
+
   
 }
    
