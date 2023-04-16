@@ -1,6 +1,7 @@
 #' @title renderMarkdown
 #' @description render Rmarkdown file with plots and most recent locatiosn 
 #' @param tempdir temporary directory to store output
+#' @param markdowndir directory to the Rmarkdown file for creating reports
 #' @return returns a pdf in tempdir with all collated plots and recent locations
 #' @details DETAILS
 #' @examples 
@@ -14,9 +15,7 @@
 #' @rdname renderMarkdown
 #' @export 
 #' @importFrom rmarkdown render
-renderMarkdown<-function(tempdir){
-  
-  data('ParturitionPlot.Rmd', package = "happybirthday")
+renderMarkdown<-function(tempdir, markdowndir){
   
   datastore<-paste0(tempdir, "/Tables/RecentLocs.RDS")
   prettydatastore<-paste0(tempdir, "/PrettyData/PrettyData.RDS")
@@ -74,7 +73,7 @@ renderMarkdown<-function(tempdir){
     }
     
     #will need to change path to PartPlot RMD file
-    rmarkdown::render(input='D:/Dropbox/SheepWork/happybirthday/data/ParturitionPlot.Rmd',
+    rmarkdown::render(input=markdowndir,
                       output_format = 'pdf_document',
                       output_file=of,
                       params=list(tabby=fn[1,1],
