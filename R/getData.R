@@ -117,11 +117,6 @@ if('Telonics' %in% mans){
     fixes <- fixes[order(fixes$CollarSerialNumber, fixes$GPS.Fix.Time),]
     
     
-    # remove all the temporary files if keep.reports = FALSE
-    
-    fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
-    unlink(fls, force=TRUE, recursive = TRUE)
-    
     tel<-data.frame(fixes)
     
     tel <- tel %>%
@@ -131,6 +126,12 @@ if('Telonics' %in% mans){
     full.tel<-rbind(tel, full.tel)
     
   }
+  
+  # remove all the temporary files if keep.reports = FALSE
+  
+  fls = dir(fldr_out, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
+  unlink(fls, force=TRUE, recursive = TRUE)
+  
 }
    
     
