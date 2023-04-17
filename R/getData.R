@@ -210,7 +210,7 @@ if('Telonics' %in% mans){
   id_df$IdCol<-id_df$Serial
   
   gps<-gps[gps$SN %in% id_df$Serial,]
-  gps<-merge(gps, id_df[, c('Serial', 'VitFreq', 'Frequency', 'Species', 'IdCol', 'AID', 'Sex')], by.x = "SN", by.y = "Serial", all = T)
+  gps<-merge(gps, id_df[, c('Serial', 'VitFreq', 'Frequency', 'Species', 'IdCol', 'AID', 'Sex')], by.x = "SN", by.y = "Serial", all.y = T)
   
   return(gps)
 }
