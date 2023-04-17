@@ -4,10 +4,12 @@
 \alias{renderMarkdown}
 \title{renderMarkdown}
 \usage{
-renderMarkdown(tempdir)
+renderMarkdown(tempdir, markdowndir)
 }
 \arguments{
 \item{tempdir}{temporary directory to store output}
+
+\item{markdowndir}{directory to the Rmarkdown file for creating reports}
 }
 \value{
 returns a pdf in tempdir with all collated plots and recent locations
