@@ -132,7 +132,7 @@ for(k in 1:length(uni)){
     inc = 5
   }
   
-  if(nrow(sub) < inc){next}
+  if(nrow(sub) <= inc){next}
   
   # sequence of row ids
   s1<-seq(1, nrow(sub)-inc, 1)
@@ -161,6 +161,8 @@ for(k in 1:length(uni)){
   print(paste0('Animal  ', uni[k], ' is complete...'))
   
   movedata2<-rbind(all, movedata2)
+  
+  
 }
 
 
