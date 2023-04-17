@@ -35,6 +35,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
     sub<-rollmean[rollmean$id == uni[k],]
     sub<-sub[order(sub$t_),]
     
+    
   
     #bring in frequency for report
       fn <- id_df[id_df$AID == uni[k],]$Frequency
