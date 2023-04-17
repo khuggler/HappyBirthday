@@ -13,7 +13,8 @@ runUpdate(
   lotek_usrs = NA,
   lotek_pass = NA,
   subsetmonth = "02",
-  study = NA
+  study = NA,
+  markdowndir = NA
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ runUpdate(
 \item{subsetmonth}{beginning month to subset GPS data to. Default is 2 (February)}
 
 \item{study}{Name of study area. Only used for subject in update email}
+
+\item{markdowndir}{directory to the Rmd file for the report}
 }
 \value{
 final product is email with deliverables

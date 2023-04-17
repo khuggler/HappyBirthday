@@ -29,6 +29,9 @@ makeMaps<-function(tempdir, gpsdat, id_df){
   require(leaflet)
 
   savedir = paste0(tempdir, "/", 'Products/')
+  if(!dir.exists(savedir)){
+    dir.create(savedir)
+  }
   
   assertthat::assert_that(class(gpsdat$tdate)[1] == "POSIXct", msg = "TelemDate column must be in POSIXct format")
   
