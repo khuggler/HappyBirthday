@@ -109,13 +109,13 @@ for(n in 1:length(uni)){
         #addTiles() %>%
         #addProviderTiles("Esri.WorldImagery") %>%
         addProviderTiles(providers$Esri.NatGeoWorldMap) %>%  #choose base layer
-        addCircleMarkers(lng=~x, lat=~y, label=~Label, popup=~Popup,col=~pal(AID), radius=1.5, opacity=100) %>% #add as circles
-        addPolylines(lng=~x, lat=~y, weight=0.5, col="black", opacity=200)
+        addCircleMarkers(lng=~x, lat=~y, label=~Label, popup=~Popup,color=~pal(AID), radius=1.5, opacity=100) %>% #add as circles
+        addPolylines(lng=~x, lat=~y, weight=0.5, color="black", opacity=200)
     }
     
     
-    a<-addCircleMarkers(map=a,data=out,lng=~x, lat=~y, label=~Label, popup=~Popup,col=~pal(AID), radius=1.5, opacity=100)
-    a<-addPolylines(map=a, data=out,lng=~x, lat=~y, weight=0.5, col="black", opacity=200)
+    a<-addCircleMarkers(map=a,data=out,lng=~x, lat=~y, label=~Label, popup=~Popup,color=~pal(AID), radius=1.5, opacity=100)
+    a<-addPolylines(map=a, data=out,lng=~x, lat=~y, weight=0.5, color="black", opacity=200)
     
     # if(out$idmortalitystatus[nrow(out)] == "5"){
     #   #add mortality markers
