@@ -132,6 +132,8 @@ for(k in 1:length(uni)){
     inc = 5
   }
   
+  if(nrow(sub) < inc){next}
+  
   # sequence of row ids
   s1<-seq(1, nrow(sub)-inc, 1)
   s2<-seq(inc, nrow(sub),1)

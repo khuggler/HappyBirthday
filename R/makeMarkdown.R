@@ -25,11 +25,12 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
   }else{dir.create(plotdir)}
   
   
-  rollmean<-rollmean[complete.cases(rollmean$t_),]
-  uni<-unique(rollmean$id)
-  
   tim<-paste(strftime(Sys.time(),format='%Y'),'-', subsetmonth, '-01',sep='')
   rollmean<-rollmean[rollmean$t_ >= tim,]
+  
+  rollmean<-rollmean[complete.cases(rollmean$t_),]
+  uni<-unique(rollmean$id)
+
   
   for(k in 1:length(uni)){
     sub<-rollmean[rollmean$id == uni[k],]
