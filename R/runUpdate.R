@@ -38,6 +38,8 @@ runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, 
   
   happybirthday::makeMarkdown(tempdir = tempdir, rollmean = rollmean, id_df = id_df, subsetmonth = subsetmonth)
   
+  happybirthday::makeTables(gpsdat = x, id_df = id_df, tempdir = tempdir)
+  
   
   happybirthday::renderMarkdown(tempdir = tempdir, markdowndir = markdowndir)
   
