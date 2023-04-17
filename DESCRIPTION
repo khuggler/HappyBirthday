@@ -29,7 +29,8 @@ Imports:
     zoo,
     plyr,
     randomForest,
-    rmarkdown
+    rmarkdown,
+    mailR
 Depends: 
     R (>= 2.10)
 LazyData: true
