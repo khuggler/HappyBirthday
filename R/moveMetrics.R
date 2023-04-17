@@ -126,7 +126,7 @@ for(k in 1:length(uni)){
   sub<-movedata[movedata$id == uni[k],]
   movesum<-summ[summ$id == uni[k],]
   
-  inc<-floor(24/movesum$min)
+  inc<-floor(24/movesum$median)
   
   if(inc < 5){
     inc = 5
@@ -148,7 +148,7 @@ for(k in 1:length(uni)){
     s<-data.frame(subsub[1,])
     s$HR<-hr$a
     
-    s$Increment<-paste0(round(inc*movesum$min), " Hours")
+    s$Increment<-paste0(round(inc*movesum$median), " Hours")
     
     all<-rbind(s, all)
     
