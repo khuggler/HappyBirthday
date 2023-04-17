@@ -145,7 +145,7 @@ for(k in 1:length(uni)){
   all<-data.frame()
   for(l in 1:length(s1)){
     subsub<-sub[s1[l]:s2[l],]
-    hr<-adehabitatHR::mcp.area(subsub, percent = 95, unin = "m", unout = "km2")
+    hr<-adehabitatHR::mcp.area(subsub, percent = 95, unin = "m", unout = "km2", plotit = FALSE)
     
     s<-data.frame(subsub[1,])
     s$HR<-hr$a
