@@ -9,7 +9,7 @@
 #' @param lotek_pass vector of Lotek passwords. The order of passwords must match that of the usernames
 #' @param subsetmonth beginning month to subset GPS data to. Default is 2 (February)
 #' @param study Name of study area. Only used for subject in update email
-#' @return final prodcut is email with deliverables
+#' @return final product is email with deliverables
 #' @details DETAILS
 #' @examples 
 #' \dontrun{
