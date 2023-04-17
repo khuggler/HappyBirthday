@@ -200,7 +200,7 @@ if('Telonics' %in% mans){
   }
  
   # bind all the data together 
-  gps<-rbind(ats.full, vec, tel.full)
+  gps<-rbind(ats.full, vec, full.tel)
   
   # add animal IDs to data-- remove data before 2023
   dt<-as.POSIXct("2023-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S")
