@@ -22,7 +22,6 @@
 #'  \code{\link[mailR]{send.mail}}
 #' @rdname runUpdate
 #' @export 
-#' @importFrom happybirthday getData makeMaps moveMetrics makeMarkdown renderMarkdown
 #' @importFrom mailR send.mail
 runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, subsetmonth = "02", study = NA){
  
