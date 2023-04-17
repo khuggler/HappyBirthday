@@ -219,6 +219,8 @@ for(l in 1:length(uni)){
   
   if(hrs <= 2){
   inc_4<-4/hrs
+  
+  if(nrow(sub)< inc_4){next}
   # 4 hour rolling mean
   sub$dist4_mean<-NA
   sub$dist4_mean[inc_4:nrow(sub)]<-zoo::rollmean(sub$dist,align=c('right'),k=inc_4)
@@ -253,6 +255,8 @@ for(l in 1:length(uni)){
     
   # 8 hour rolling mean
   inc_8<-round(8/hrs)
+  
+  if(nrow(sub) < inc_8){next}
   
   sub$dist8_mean<-NA
   sub$dist8_mean[inc_8:nrow(sub)]<-zoo::rollmean(sub$dist,align=c('right'),k=inc_8)
@@ -321,6 +325,8 @@ for(l in 1:length(uni)){
     
   inc_24<-round(24/hrs)
   
+  if(nrow(sub) < inc_24){next}
+  
   # 24 hour rolling mean
   
   sub$dist24_mean<-NA
@@ -356,6 +362,8 @@ for(l in 1:length(uni)){
   
   inc_32<-round(32/hrs)
   
+  if(nrow(sub) < inc_32){next}
+  
   sub$dist32_mean<-NA
   sub$dist32_mean[inc_32:nrow(sub)]<-zoo::rollmean(sub$dist,align=c('right'),k=inc_32)
   
@@ -387,7 +395,9 @@ for(l in 1:length(uni)){
   
   if(hrs <= 24){
   
+ 
   inc_48<-round(48/hrs)
+  if(nrow(sub) < inc_48){next}
   
   # 48 hour rolling mean
   
