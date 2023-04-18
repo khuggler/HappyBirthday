@@ -72,13 +72,16 @@ rgdal::writeOGR(lastpoint,paste(savedir,'LatestLocs.gpx',sep=''),layer='locs',dr
 
 
 
+gg<-gpsdat
+sp::coordinates(gg)<-c('x', 'y')
+sp::proj4string(gg)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' 
 # create mapView map
-ids=unique(gpsdat$AID)
+ids=unique(gg$AID)
 trajectory <- list()
 
 lasttwelve<-data.frame()
 for (i in ids){
-  spdf<-subset(gpsdat, AID==i)
+  spdf<-subset(gg, AID==i)
   spdf<-spdf[order(spdf$tdate, decreasing = T),]
   spdf<-spdf[1:12,]
   spdf$Category<-c(rep("4", 11), "8")
@@ -100,8 +103,9 @@ sp::proj4string(trajectory.sp.data)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +n
 sp::coordinates(lasttwelve)<-c('x', 'y')
 sp::proj4string(lasttwelve)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
-x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery') + mapview::mapview(lasttwelve, cex = "Category", zcol = "Category")
-  leafem::addStaticLabels(map = x, label = trajectory.sp.data$ID, no.hide = FALSE, direction = 'top', textOnly = TRUE, textsize = "20px", color = "white")
+x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery') + mapview::mapview(lasttwelve, cex = "Category", zcol = "AID")
+
+leafem::addStaticLabels(map = x, label = trajectory.sp.data$ID, no.hide = FALSE, direction = 'top', textOnly = TRUE, textsize = "20px", color = "white")
 mapview::mapshot(x, url = paste0(savedir, "LastTwelve.html"))
 
 
