@@ -44,7 +44,7 @@ runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, 
   happybirthday::renderMarkdown(tempdir = tempdir, markdowndir = markdowndir)
   
   #attachments. This is going to include the ParturitionMetrics PDF and html files if you want them to send as well.
-  attach = c(paste0(tempdir, "/Products/Last3Days.html"), paste0(tempdir, "/Products/LatestLocs.kml"), paste0(tempdir, "/ParturitionMetrics.pdf"))
+  attach = c(paste0(tempdir, "/Products/Last3Days.html"),paste0(tempdir, "/Products/LastTwelve.html"), paste0(tempdir, "/Products/LatestLocs.kml"), paste0(tempdir, "/ParturitionMetrics.pdf"))
   
   mailR::send.mail(from = from,
                    to = to,
