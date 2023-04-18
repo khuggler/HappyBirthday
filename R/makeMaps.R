@@ -72,6 +72,42 @@ rgdal::writeOGR(lastpoint,paste(savedir,'LatestLocs.gpx',sep=''),layer='locs',dr
 
 
 
+# create mapView map
+ids=unique(gpsdat$AID)
+trajectory <- list()
+
+lasttwelve<-data.frame()
+for (i in ids){
+  spdf<-subset(gpsdat, AID==i)
+  spdf<-spdf[order(spdf$tdate, decreasing = T),]
+  spdf<-spdf[1:12,]
+  spdf$Category<-c(rep("4", 11), "8")
+  bt<-sp::SpatialLines(list(sp::Lines(list(sp::Line(spdf)), "id")))
+  trajectory[[i]]<-sp::Lines(list(sp::Line(spdf)), ID=paste(i))
+  #trajectory[[i]]<-birdtrajectory
+  print(i)
+  
+  lasttwelve<-rbind(data.frame(spdf), lasttwelve)
+}
+
+traj.sp<-sp::SpatialLines(trajectory)
+
+trajectory.sp.data <- sp::SpatialLinesDataFrame(traj.sp,
+                                                data = data.frame(ID = ids), match.ID = FALSE)
+
+
+sp::proj4string(trajectory.sp.data)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' 
+sp::coordinates(lasttwelve)<-c('x', 'y')
+sp::proj4string(lasttwelve)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+
+x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery') + mapview::mapview(lasttwelve, cex = "Category", zcol = "Category")
+  leafem::addStaticLabels(map = x, label = trajectory.sp.data$ID, no.hide = FALSE, direction = 'top', textOnly = TRUE, textsize = "20px", color = "white")
+mapview::mapshot(x, url = paste0(savedir, "LastTwelve.html"))
+
+
+rm(x)
+
+
 pal <- leaflet::colorFactor(palette = 'Paired',domain = gpsdat$AID)
 
 #create custom icons for most recent locations

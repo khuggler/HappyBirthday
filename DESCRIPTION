@@ -30,7 +30,9 @@ Imports:
     plyr,
     randomForest,
     rmarkdown,
-    mailR
+    mailR,
+    mapview,
+    leafem
 Depends: 
     R (>= 2.10)
 LazyData: true
