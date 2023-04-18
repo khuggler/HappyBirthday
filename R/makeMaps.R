@@ -103,9 +103,9 @@ sp::proj4string(trajectory.sp.data)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +n
 sp::coordinates(lasttwelve)<-c('x', 'y')
 sp::proj4string(lasttwelve)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
-x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery') + mapview::mapview(lasttwelve, cex = "Category", zcol = "AID")
+x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery', color = "black", legend = FALSE)+ mapview::mapview(lasttwelve, cex = "Category", zcol = "AID", legend = FALSE)
 
-leafem::addStaticLabels(map = x, label = trajectory.sp.data$ID, no.hide = FALSE, direction = 'top', textOnly = TRUE, textsize = "20px", color = "white")
+x<-leafem::addStaticLabels(map = x, label = trajectory.sp.data$ID, no.hide = FALSE, direction = 'top', textOnly = TRUE, textsize = "20px", color = "white")
 mapview::mapshot(x, url = paste0(savedir, "LastTwelve.html"))
 
 
