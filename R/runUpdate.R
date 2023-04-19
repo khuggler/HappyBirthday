@@ -7,6 +7,7 @@
 #' @param ATS_pass vector of ATS passwords. The order of passwords must match that of the usernames
 #' @param lotek_usrs vector of Lotek usernames
 #' @param lotek_pass vector of Lotek passwords. The order of passwords must match that of the usernames
+#' @param tzone time zone of vectronics data if applicable. Options are "America/Los_Angeles" or "America/Denver". Default is "America/Los_Angeles"
 #' @param subsetmonth beginning month to subset GPS data to. Default is 2 (February)
 #' @param study Name of study area. Only used for subject in update email
 #' @param markdowndir directory to the Rmd file for the report
@@ -24,9 +25,9 @@
 #' @rdname runUpdate
 #' @export 
 #' @importFrom mailR send.mail
-runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, subsetmonth = "02", study = NA, markdowndir = NA){
+runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA){
  
-  x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass)
+  x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass, tzone = tzone)
   
   # make maps
   happybirthday::makeMaps(tempdir = tempdir, gpsdat = x, id_df = id_df)
