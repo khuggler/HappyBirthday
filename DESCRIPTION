@@ -13,26 +13,24 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    dplyr,
-    collar,
-    processx,
-    rgdal,
-    sp,
-    leaflet,
-    DT,
-    htmlwidgets,
-    purrr,
-    assertthat,
-    amt,
     adehabitatHR,
-    recurse,
-    zoo,
-    plyr,
-    randomForest,
-    rmarkdown,
+    amt,
+    assertthat,
+    collar,
+    dplyr,
+    htmlwidgets,
+    leafem,
+    leaflet,
+    lubridate,
     mailR,
     mapview,
-    leafem
-Depends: 
-    R (>= 2.10)
+    plyr,
+    processx,
+    purrr,
+    recurse,
+    rgdal,
+    rmarkdown,
+    sp,
+    zoo
+Depends: , R (>= 4.0)
 LazyData: true
