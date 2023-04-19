@@ -198,6 +198,8 @@ if('Telonics' %in% mans){
                                        tz = "UTC",
                                        origin = vec$tdate)
     vec<-data.frame(vec)
+    
+    vec$tdate<-lubridate::with_tz(vec$tdate, tzone = tzone)
   }
  
   # bind all the data together 
@@ -215,7 +217,7 @@ if('Telonics' %in% mans){
   
   gps<-gps[complete.cases(gps$x),]
   
-  gps$tdate<-lubridate::with_tz(gps$tdate, tzone = tzone)
+ 
   return(gps)
 }
   
