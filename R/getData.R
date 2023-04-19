@@ -7,6 +7,7 @@
 #' @param lotek_pass if lotek data is needed, vector of lotek passwords for download
 #' @param ATS_usrs if ATS data is needed, vector of ATS usernames
 #' @param ATS_pass if ATS data is needed, vectors of ATS passwords
+#' @param tzone time zone for your study area. Options are "America/Los_Angeles" or "America/Denver". America/Los_Angeles is the default.
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples 
@@ -24,7 +25,7 @@
 #' @importFrom processx run
 #' @importFrom collar ats_login fetch_ats_positions ats_logout get_paths fetch_vectronics
 #' @importFrom dplyr bind_rows
-getData<-function(id_df, tempdir = NA, veckeys = NA, lotek_usrs = NA, lotek_pass = NA, ATS_usrs = NA, ATS_pass = NA){
+getData<-function(id_df, tempdir = NA, veckeys = NA, lotek_usrs = NA, lotek_pass = NA, ATS_usrs = NA, ATS_pass = NA, tzone = 'America/Los_Angeles'){
   
   require(dplyr)
   require(collar)
@@ -203,7 +204,7 @@ if('Telonics' %in% mans){
   gps<-rbind(ats.full, vec, full.tel)
   
   # add animal IDs to data-- remove data before 2023
-  dt<-as.POSIXct("2023-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S")
+  dt<-as.POSIXct("2023-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
   gps<-gps[gps$tdate >= dt,]
   
   id_df$Serial<-ifelse(id_df$Brand == "ATS", paste0("0", id_df$Serial), id_df$Serial)
@@ -214,6 +215,7 @@ if('Telonics' %in% mans){
   
   gps<-gps[complete.cases(gps$x),]
   
+  gps$tdate<-lubridate::with_tz(gps$tdate, tzone = tzone)
   return(gps)
 }
   
