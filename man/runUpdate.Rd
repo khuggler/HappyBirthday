@@ -12,6 +12,7 @@ runUpdate(
   ATS_pass = NA,
   lotek_usrs = NA,
   lotek_pass = NA,
+  tzone = "America/Los_Angeles",
   subsetmonth = "02",
   study = NA,
   markdowndir = NA
@@ -31,6 +32,8 @@ runUpdate(
 \item{lotek_usrs}{vector of Lotek usernames}
 
 \item{lotek_pass}{vector of Lotek passwords. The order of passwords must match that of the usernames}
+
+\item{tzone}{time zone of vectronics data if applicable. Options are "America/Los_Angeles" or "America/Denver". Default is "America/Los_Angeles"}
 
 \item{subsetmonth}{beginning month to subset GPS data to. Default is 2 (February)}
 
