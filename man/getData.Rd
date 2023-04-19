@@ -11,7 +11,8 @@ getData(
   lotek_usrs = NA,
   lotek_pass = NA,
   ATS_usrs = NA,
-  ATS_pass = NA
+  ATS_pass = NA,
+  tzone = "America/Los_Angeles"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ getData(
 \item{ATS_usrs}{if ATS data is needed, vector of ATS usernames}
 
 \item{ATS_pass}{if ATS data is needed, vectors of ATS passwords}
+
+\item{tzone}{time zone for your study area. Options are "America/Los_Angeles" or "America/Denver". America/Los_Angeles is the default.}
 }
 \value{
 OUTPUT_DESCRIPTION
