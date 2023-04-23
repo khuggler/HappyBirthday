@@ -8,11 +8,14 @@ getData(
   id_df,
   tempdir = NA,
   veckeys = NA,
-  lotek_usrs = NA,
-  lotek_pass = NA,
+  telonic_usrs = NA,
+  telonic_pass = NA,
   ATS_usrs = NA,
   ATS_pass = NA,
-  tzone = "America/Los_Angeles"
+  lotek_usrs = NA,
+  lotek_pass = NA,
+  tzone = "America/Los_Angeles",
+  subsetmonth = "02"
 )
 }
 \arguments{
@@ -22,15 +25,21 @@ getData(
 
 \item{veckeys}{if Vectronic data is downloaded, path to Vectronic keys is needed, Default: NA}
 
-\item{lotek_usrs}{if lotek data is needed, vector of lotek usernames for download}
+\item{telonic_usrs}{if telonic data is needed, vector of telonic usernames for download}
 
-\item{lotek_pass}{if lotek data is needed, vector of lotek passwords for download}
+\item{telonic_pass}{if telonic data is needed, vector of telonic passwords for download}
 
 \item{ATS_usrs}{if ATS data is needed, vector of ATS usernames}
 
 \item{ATS_pass}{if ATS data is needed, vectors of ATS passwords}
 
+\item{lotek_usrs}{if lotek data is needed, vector of telonic passwords for download}
+
+\item{lotek_pass}{if lotek data is needed, vector of lotek passwords for download}
+
 \item{tzone}{time zone for your study area. Options are "America/Los_Angeles" or "America/Denver". America/Los_Angeles is the default.}
+
+\item{subsetmonth}{month to start downloading GPS data}
 }
 \value{
 OUTPUT_DESCRIPTION
