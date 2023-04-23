@@ -3,11 +3,14 @@
 #' @param id_df data.frame that has the animal ids and serial numbers
 #' @param tempdir character. path to temporary directory for telonics files to be saved. If this file in the path does not exist it will be created for you. Default is NA. 
 #' @param veckeys if Vectronic data is downloaded, path to Vectronic keys is needed, Default: NA
-#' @param lotek_usrs if lotek data is needed, vector of lotek usernames for download
-#' @param lotek_pass if lotek data is needed, vector of lotek passwords for download
+#' @param telonic_usrs if telonic data is needed, vector of telonic usernames for download
+#' @param telonic_pass if telonic data is needed, vector of telonic passwords for download
 #' @param ATS_usrs if ATS data is needed, vector of ATS usernames
 #' @param ATS_pass if ATS data is needed, vectors of ATS passwords
+#' @param lotek_usrs if lotek data is needed, vector of telonic passwords for download
+#' @param lotek_pass if lotek data is needed, vector of lotek passwords for download
 #' @param tzone time zone for your study area. Options are "America/Los_Angeles" or "America/Denver". America/Los_Angeles is the default.
+#' @param subsetmonth month to start downloading GPS data
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples 
@@ -25,7 +28,7 @@
 #' @importFrom processx run
 #' @importFrom collar ats_login fetch_ats_positions ats_logout get_paths fetch_vectronics
 #' @importFrom dplyr bind_rows
-getData<-function(id_df, tempdir = NA, veckeys = NA, lotek_usrs = NA, lotek_pass = NA, ATS_usrs = NA, ATS_pass = NA, tzone = 'America/Los_Angeles'){
+getData<-function(id_df, tempdir = NA, veckeys = NA, telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02"){
   
   require(dplyr)
   require(collar)
@@ -40,9 +43,9 @@ getData<-function(id_df, tempdir = NA, veckeys = NA, lotek_usrs = NA, lotek_pass
   tel<-NA
 if('Telonics' %in% mans){
   
-  for(l in 1:length(lotek_usrs)){
-    username = lotek_usrs[l]
-    password =lotek_pass[l]   # must be \\ slashes
+  for(l in 1:length(telonic_usrs)){
+    username = telonic_usrs[l]
+    password =telonic_pass[l]   # must be \\ slashes
     TDC_path = "C:\\Program Files (x86)\\Telonics\\Data Converter\\TDC.exe"
     keep.reports = FALSE
     
@@ -183,6 +186,56 @@ if('Telonics' %in% mans){
     
   }
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  # Lotek data 
+  lotek<-NA
+  lotek.full<-data.frame()
+  if('Lotek' %in% mans){
+    
+    
+    tim<-as.character(paste(as.numeric(strftime(Sys.time(),format='%Y'))-1,'-', subsetmonth, '-01 00:00:00',sep=''))
+    
+    for (i in 1:length(lotek_usrs)){
+      collar::lotek_login(lotek_usrs[i], lotek_pass[i])
+      #sns<-id_df[id_df$Brand == "ATS",]$Serial
+      #sns<-paste0("0", sns) # missing leading zero
+      sns<-id_df[id_df$Brand == "Lotek",]$Serial
+      out.acct <- collar::fetch_lotek_positions(device_id = sns, start_date = tim, end_date = as.character(Sys.time()))
+      
+      
+    
+      
+      lotek <- out.acct %>%
+        rename(tdate = "UploadTimeStamp", SN = 'DeviceID', x = 'Longitude', y = 'Latitude') %>%
+        select(SN, tdate, x, y)
+      lotek<-data.frame(lotek)
+      
+      collar::lotek_logout()
+      
+    lotek.full<-rbind(lotek, lotek.full)
+      
+      
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   vec<-NA
   if('Vectronic' %in% mans){
     
@@ -203,11 +256,12 @@ if('Telonics' %in% mans){
   }
  
   # bind all the data together 
-  gps<-rbind(ats.full, vec, full.tel)
+  gps<-rbind(ats.full, vec, full.tel, lotek.full)
   
   # add animal IDs to data-- remove data before 2023
-  dt<-as.POSIXct("2023-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
-  gps<-gps[gps$tdate >= dt,]
+   tim<-paste(as.numeric(strftime(Sys.time(),format='%Y'))-1,'-', subsetmonth, '-01 00:00:00',sep='')
+  
+  gps<-gps[gps$tdate >= tim,]
   
   id_df$Serial<-ifelse(id_df$Brand == "ATS", paste0("0", id_df$Serial), id_df$Serial)
   id_df$IdCol<-id_df$Serial
