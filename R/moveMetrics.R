@@ -26,6 +26,11 @@ require(amt)
 require(purrr)
 require(sp)
   
+  
+
+tim<-paste(as.numeric(strftime(Sys.time(),format='%Y'))-1,'-', subsetmonth, '-01 00:00:00',sep='')
+gps<-gpsdat[which(gpsdat$t_>=as.POSIXct(tim,'%Y-%m-%d %H:%M:%S',tz='')),]
+  
 # clean up gps data
 gps<-gpsdat[complete.cases(gpsdat$tdate),]
 gps$id<-gps$AID
@@ -36,17 +41,21 @@ summ<-trk |>
 
 
 # track_resample each individual to a constant movement rate 
-
 uni<-unique(trk$id)
 track_resamp<-NULL
 for(i in 1:length(uni)){
   subtrk<-trk[trk$id == uni[i],]
   movesumm<-summ[summ$id == uni[i],]
   
-  hrs<-floor(movesumm$median)
+  if(movesumm$unit == "min"){
+    hrs<-floor(movesumm$median/60)
+  }
   
-  new_trk<-amt::track_resample(subtrk, rate = lubridate::hours(hrs), tolerance = lubridate::minutes(15)) %>%
-    amt::filter_min_n_burst(min_n = 3)
+  if(movesumm$unit == "hour"){
+  hrs<-floor(movesumm$median)
+  }
+  
+  new_trk<-amt::track_resample(subtrk, rate = lubridate::hours(hrs), tolerance = lubridate::minutes(15))
   
   track_resamp<-rbind(new_trk, track_resamp)
   
@@ -69,12 +78,7 @@ full_trk$moveid<-paste0(full_trk$id, "_", full_trk$burst_)
 sheep_resamp<-full_trk
 
 
-# filter out data 
-tim<-paste(as.numeric(strftime(Sys.time(),format='%Y'))-1,'-', subsetmonth, '-01 00:00:00',sep='')
-mdat<-sheep_resamp[which(sheep_resamp$t_>=as.POSIXct(tim,'%Y-%m-%d %H:%M:%S',tz='')),]
-
-
-sheep.spat<-mdat
+sheep.spat<-sheep_resamp
 sp::coordinates(sheep.spat)<-c('x_', 'y_')
 sp::proj4string(sheep.spat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
@@ -84,11 +88,11 @@ sheep.utm<-sp::spTransform(sheep.spat, '+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0
 
 
 
-uni<-unique(sheep.utm$moveid)
+uni<-unique(sheep.utm$id)
 movedata<-data.frame()
 for(i in 1:length(uni)){
   
-  sub<-data.frame(sheep.utm[sheep.utm$moveid== uni[i],])
+  sub<-data.frame(sheep.utm[sheep.utm$id== uni[i],])
   sub<-sub[order(sub$t_),]
   
   # sub$Hour<-strftime(sub$TelemDate,format='%H')
@@ -169,11 +173,11 @@ for(k in 1:length(uni)){
 
 
 
-uni<-unique(movedata2$moveid)
+uni<-unique(movedata2$id)
 
 rfprep<-data.frame()
 for(i in 1:length(uni)){
-  ss<-movedata2[movedata2$moveid == uni[i],]
+  ss<-movedata2[movedata2$id == uni[i],]
   
   ss<-ss[order(ss$t_),]
   
