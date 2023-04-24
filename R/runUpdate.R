@@ -3,6 +3,8 @@
 #' @param id_df data.frame of lookup information
 #' @param tempdir temporary directory to save files
 #' @param veckeys directory to vectronics key files
+#' @param telonic_usrs vector of telonic usernames
+#' @param telonic_pass vector of telonic passwords. The order of passwords must match that of the usernames
 #' @param ATS_usrs vector of ATS usernames
 #' @param ATS_pass vector of ATS passwords. The order of passwords must match that of the usernames
 #' @param lotek_usrs vector of Lotek usernames
@@ -25,9 +27,9 @@
 #' @rdname runUpdate
 #' @export 
 #' @importFrom mailR send.mail
-runUpdate<-function(id_df, tempdir, veckeys = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA){
+runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA){
  
-  x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass, tzone = tzone)
+  x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, telonic_usrs = telonic_usrs, telonic_pass = telonic_pass, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass, tzone = tzone, subsetmonth = subsetmonth)
   
   # make maps
   happybirthday::makeMaps(tempdir = tempdir, gpsdat = x, id_df = id_df)
