@@ -8,6 +8,8 @@ runUpdate(
   id_df,
   tempdir,
   veckeys = NA,
+  telonic_usrs = NA,
+  telonic_pass = NA,
   ATS_usrs = NA,
   ATS_pass = NA,
   lotek_usrs = NA,
@@ -24,6 +26,10 @@ runUpdate(
 \item{tempdir}{temporary directory to save files}
 
 \item{veckeys}{directory to vectronics key files}
+
+\item{telonic_usrs}{vector of telonic usernames}
+
+\item{telonic_pass}{vector of telonic passwords. The order of passwords must match that of the usernames}
 
 \item{ATS_usrs}{vector of ATS usernames}
 
