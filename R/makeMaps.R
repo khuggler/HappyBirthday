@@ -60,8 +60,22 @@ sp::coordinates(lastpoint)<-~x+y
 sp::proj4string(lastpoint)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' 
 
 names(lastpoint)[names(lastpoint) == 'AID']<-'name'
-rgdal::writeOGR(lastpoint["name"], paste(savedir,'LatestLocs.kml',sep=''), layer = 'BHS', driver = "KML",
-                overwrite = T)
+lastpoint$name<-paste0(lastpoint$name, "-", lastpoint$tdate)
+
+#' add in a conditional coloring
+cut<-Sys.time()-lubridate::days(2)
+lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, '#33FFFF', '#FF0000')
+
+plotKML::kml(lastpoint, 
+              file.name = paste(savedir, 'LatestLocs.kml'), sep = "", 
+             colour = lastpoint$Flag,
+             alpha = 1.0, 
+             shape = 'http://plotkml.r-forge.r-project.org/circle.png',
+             points_names = lastpoint$name, 
+             labels = 2,
+             size = 1)
+
+
 
 #lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
 lastpoint<-lastpoint[,names(lastpoint) == 'name']
@@ -102,6 +116,7 @@ trajectory.sp.data <- sp::SpatialLinesDataFrame(traj.sp,
 sp::proj4string(trajectory.sp.data)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs' 
 sp::coordinates(lasttwelve)<-c('x', 'y')
 sp::proj4string(lasttwelve)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+
 
 x<-mapview::mapview(trajectory.sp.data, map.types = 'Esri.WorldImagery', color = "black", legend = FALSE)+ mapview::mapview(lasttwelve, cex = "Category", zcol = "AID", legend = FALSE)
 

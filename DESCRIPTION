@@ -23,6 +23,7 @@ Imports:
     leaflet,
     lubridate,
     mailR,
+    plotKML,
     mapview,
     plyr,
     processx,

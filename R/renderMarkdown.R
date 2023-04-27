@@ -81,6 +81,8 @@ renderMarkdown<-function(tempdir, markdowndir){
                                   plotlink=fn[1,4],
                                   basepath=paste0(plotfolder,'/')),quiet=F)
     
+    print(i)
+    
   }
   
   c<-list.files(pdffolder,full.names=T)
