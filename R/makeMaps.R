@@ -67,7 +67,7 @@ cut<-Sys.time()-lubridate::days(2)
 lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, '#33FFFF', '#FF0000')
 
 plotKML::kml(lastpoint, 
-              file.name = paste(savedir, 'LatestLocs.kml'), sep = "", 
+              file.name = paste(savedir, 'LatestLocs.kml', sep = ""), 
              colour = lastpoint$Flag,
              alpha = 1.0, 
              shape = 'http://plotkml.r-forge.r-project.org/circle.png',
