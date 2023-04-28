@@ -33,11 +33,7 @@ makeMaps<-function(tempdir, gpsdat, id_df){
     dir.create(savedir)
   }
   
-  
-  if(file.exists(paste0(savedir, "LatestLocs.kml"))){
-    file.remove(paste0(savedir, 'LatestLocs.kml'))
-  }
-  
+
   assertthat::assert_that(class(gpsdat$tdate)[1] == "POSIXct", msg = "TelemDate column must be in POSIXct format")
   
   assertthat::assert_that('Frequency' %in% unique(names(id_df)), msg = "Lookup data must include Frequency")
@@ -70,7 +66,7 @@ names(lastpoint)[names(lastpoint) == 'AID']<-'name'
 cut<-Sys.time()-lubridate::days(2)
 lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, '#33FFFF', '#FF0000')
 
-plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'))
+plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'), overwrite = T)
 plotKML::kml_layer(lastpoint, 
               file.name = paste0(savedir, 'LatestLocs.kml'), 
              colour = lastpoint$Flag,
