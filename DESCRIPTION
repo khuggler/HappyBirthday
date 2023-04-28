@@ -32,7 +32,8 @@ Imports:
     rgdal,
     rmarkdown,
     sp,
-    zoo
+    zoo,
+    maptools
 Depends: 
   R (>= 4.0)
 LazyData: true

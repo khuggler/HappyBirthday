@@ -64,20 +64,24 @@ names(lastpoint)[names(lastpoint) == 'AID']<-'name'
 
 #' add in a conditional coloring
 cut<-Sys.time()-lubridate::days(2)
-lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, '#33FFFF', '#FF0000')
+lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, 'http://maps.google.com/mapfiles/kml/pal2/icon18.png', 'http://maps.google.com/mapfiles/kml/pal4/icon48.png')
 
-plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'), overwrite = T)
-plotKML::kml_layer(lastpoint, 
-              file.name = paste0(savedir, 'LatestLocs.kml'), 
-             colour = lastpoint$Flag,
-             alpha = 1.0, 
-             shape = 'http://maps.google.com/mapfiles/kml/pal2/icon18.png',
-             points_names = lastpoint$name, 
-             balloon = FALSE,
-             labels = 2,
-             size = 1)
-plotKML::kml_close(file.name = paste0(savedir, 'LatestLocs.kml'))
 
+kmlfile<-paste0(savedir, 'LatestLocs.kml')
+kmlname<-'BHS Locations'
+maptools::kmlPoints(lastpoint, kmlfile = kmlfile, name = lastpoint$name, icon = lastpoint$Flag, kmlname = kmlname)
+# plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'), overwrite = T)
+# plotKML::kml_layer(lastpoint, 
+#               file.name = paste0(savedir, 'LatestLocs.kml'), 
+#              colour = lastpoint$Flag,
+#              alpha = 1.0, 
+#              shape = 'http://maps.google.com/mapfiles/kml/pal2/icon18.png',
+#              points_names = lastpoint$name, 
+#              balloon = FALSE,
+#              labels = 2,
+#              size = 1)
+# plotKML::kml_close(file.name = paste0(savedir, 'LatestLocs.kml'))
+# 
 
 lastpoint<-lastpoint[,names(lastpoint) == 'name']
 rgdal::writeOGR(lastpoint,paste(savedir,'LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
