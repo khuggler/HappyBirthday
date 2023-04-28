@@ -75,7 +75,7 @@ plotKML::kml(lastpoint,
              labels = 2,
              size = 1)
 
-
+plotKML::kml_close(file.name = paste0(savedir, 'LatestLocs.kml'))
 
 #lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
 lastpoint<-lastpoint[,names(lastpoint) == 'name']
