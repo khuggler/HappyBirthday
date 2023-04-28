@@ -73,6 +73,7 @@ plotKML::kml_layer(lastpoint,
              alpha = 1.0, 
              shape = 'http://plotkml.r-forge.r-project.org/circle.png',
              points_names = lastpoint$name, 
+             balloon = FALSE,
              labels = 2,
              size = 1)
 plotKML::kml_close(file.name = paste0(savedir, 'LatestLocs.kml'))
