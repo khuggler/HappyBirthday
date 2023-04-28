@@ -70,7 +70,8 @@ names(lastpoint)[names(lastpoint) == 'AID']<-'name'
 cut<-Sys.time()-lubridate::days(2)
 lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, '#33FFFF', '#FF0000')
 
-plotKML::kml(lastpoint, 
+plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'))
+plotKML::kml_layer(lastpoint, 
               file.name = paste0(savedir, 'LatestLocs.kml'), 
              colour = lastpoint$Flag,
              alpha = 1.0, 
@@ -78,10 +79,10 @@ plotKML::kml(lastpoint,
              points_names = lastpoint$name, 
              labels = 2,
              size = 1)
+plotKML::kml_close(file.name = paste0(savedir, 'LatestLocs.kml'))
 
-#lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
+
 lastpoint<-lastpoint[,names(lastpoint) == 'name']
-#names(lastpoint)[1]<-'Frequency'
 rgdal::writeOGR(lastpoint,paste(savedir,'LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
 
 
