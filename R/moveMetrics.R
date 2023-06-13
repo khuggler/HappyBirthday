@@ -55,6 +55,10 @@ for(i in 1:length(uni)){
   hrs<-floor(movesumm$median)
   }
   
+  if(movesumm$unit == "day"){
+    hrs<-floor(movesumm$median)
+  }
+  
   new_trk<-amt::track_resample(subtrk, rate = lubridate::hours(hrs), tolerance = lubridate::minutes(15))
   
   track_resamp<-rbind(new_trk, track_resamp)
