@@ -60,7 +60,7 @@ sp::proj4string(lastpoint)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
 names(lastpoint)[names(lastpoint) == 'AID']<-'name'
 
-#' add in a conditional coloring
+
 cut<-Sys.time()-lubridate::days(2)
 lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, 'http://maps.google.com/mapfiles/kml/pal2/icon18.png', 'http://maps.google.com/mapfiles/kml/pal4/icon48.png')
 
