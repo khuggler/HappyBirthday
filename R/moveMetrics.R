@@ -28,8 +28,8 @@ require(sp)
   
   
 
-tim<-paste(as.numeric(strftime(Sys.time(),format='%Y'))-1,'-', subsetmonth, '-01 00:00:00',sep='')
-gps<-gpsdat[which(gpsdat$t_>=as.POSIXct(tim,'%Y-%m-%d %H:%M:%S',tz='')),]
+tim<-paste(as.numeric(strftime(Sys.time(),format='%Y')),'-', subsetmonth, '-01 00:00:00',sep='')
+gps<-gpsdat[which(gpsdat$tdate>=as.POSIXct(tim,'%Y-%m-%d %H:%M:%S',tz='')),]
   
 # clean up gps data
 gps<-gpsdat[complete.cases(gpsdat$tdate),]
@@ -48,18 +48,19 @@ for(i in 1:length(uni)){
   movesumm<-summ[summ$id == uni[i],]
   
   if(movesumm$unit == "min"){
-    hrs<-floor(movesumm$median/60)
+    hrs<-round(movesumm$median/60)
   }
   
   if(movesumm$unit == "hour"){
-  hrs<-floor(movesumm$median)
+  hrs<-round(movesumm$median)
   }
   
   if(movesumm$unit == "day"){
-    hrs<-floor(movesumm$median)
+    hrs<-round(movesumm$median)
   }
   
-  new_trk<-amt::track_resample(subtrk, rate = lubridate::hours(hrs), tolerance = lubridate::minutes(15))
+  new_trk<-amt::track_resample(subtrk, rate = lubridate::hours(hrs), tolerance = lubridate::minutes(15)) |>
+    filter_min_n_burst(5)
   
   track_resamp<-rbind(new_trk, track_resamp)
   
@@ -82,22 +83,76 @@ full_trk$moveid<-paste0(full_trk$id, "_", full_trk$burst_)
 sheep_resamp<-full_trk
 
 
-sheep.spat<-sheep_resamp
+
+
+
+# twelve interval intensity of use 
+uni<-unique(sheep_resamp$moveid)
+iu.data<-data.frame()
+for(i in 1:length(uni)){
+  sub_trk<-sheep_resamp[sheep_resamp$moveid == uni[i],]
+  
+  if(nrow(sub_trk) <= 12){
+    sub_trk$IU<-NA
+  }
+  
+  if(nrow(sub_trk) > 12){
+    
+    # # sequence of row ids
+    # s1<-seq(1, nrow(sub_trk)-23, 1)
+    # s2<-seq(24, nrow(sub_trk),1)
+    # 
+    # add HR column
+    sub_trk$IU<-NA
+    
+    #loop through and calculate rolling HR size in km
+    all<-data.frame()
+    
+    for(l in 12:nrow(sub_trk)){
+      subsub<-sub_trk[(l-11):l,]
+      
+      sub_trk$IU[l]<-amt::intensity_use(subsub)
+      
+    }
+    
+    print(paste0('Animal  ', uni[i], ' is complete...'))
+    
+    iu.data<-rbind(sub_trk, iu.data)
+  }
+  
+}
+
+
+
+
+
+
+
+sheep.spat<-iu.data
 sp::coordinates(sheep.spat)<-c('x_', 'y_')
 sp::proj4string(sheep.spat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
 # keep a utm version
-sheep.utm<-sp::spTransform(sheep.spat, '+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
+sheep.spat<-st_as_sf(sheep.spat)
+sheep.utm<-sf::st_transform(sheep.spat, '+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
 
+# add lat-longs
+sheep.utm <- sheep.utm %>%
+  ungroup() %>%
+  mutate(y_ = sf::st_coordinates(.)[,2],
+         x_ = sf::st_coordinates(.)[,1])
 
-
+sheep.utm <- sheep.utm %>%
+  st_drop_geometry()
 
 uni<-unique(sheep.utm$id)
 movedata<-data.frame()
 for(i in 1:length(uni)){
   
-  sub<-data.frame(sheep.utm[sheep.utm$id== uni[i],])
+  #sub<-data.frame(sheep.utm[sheep.utm$id== uni[i],])
+  sub<-sheep.utm[sheep.utm$id == uni[i],]
   sub<-sub[order(sub$t_),]
+  
   
   # sub$Hour<-strftime(sub$TelemDate,format='%H')
   #  sub$JulDay<-strftime(sub$TelemDate,format='%j')
@@ -123,8 +178,9 @@ for(i in 1:length(uni)){
 
 
 
+movedata<-data.frame(movedata)
 sp::coordinates(movedata)<-c('x_', 'y_')
-sp::proj4string(movedata)<-sp::proj4string(sheep.utm)
+sp::proj4string(movedata)<-'+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'
 
 uni<-unique(movedata$id)
 
@@ -134,7 +190,7 @@ for(k in 1:length(uni)){
   sub<-movedata[movedata$id == uni[k],]
   movesum<-summ[summ$id == uni[k],]
   
-  inc<-floor(24/movesum$median)
+  inc<-round(24/movesum$median)
   
   if(inc < 5){
     inc = 5
@@ -440,6 +496,7 @@ for(l in 1:length(uni)){
   
   roll.mean<-plyr::rbind.fill(sub, roll.mean)
 
+  roll.mean$Hour<-hrs
   
   print(l)
 }

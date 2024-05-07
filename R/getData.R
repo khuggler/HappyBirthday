@@ -125,7 +125,7 @@ if('Telonics' %in% mans){
     
     tel <- tel %>%
       rename(tdate = "GPS.Fix.Time", x = "GPS.Longitude", y = "GPS.Latitude", SN = "CollarSerialNumber") %>%
-      select(SN, tdate, x, y)
+      dplyr::select(SN, tdate, x, y)
     
     full.tel<-rbind(tel, full.tel)
     
@@ -174,7 +174,7 @@ if('Telonics' %in% mans){
     
     ats <- out.acct %>%
       rename(tdate = "DateLocal", SN = 'CollarSerialNumber', x = 'Longitude', y = 'Latitude') %>%
-      select(SN, tdate, x, y)
+      dplyr::select(SN, tdate, x, y)
     ats<-data.frame(ats)
     
     collar::ats_logout()
@@ -217,7 +217,7 @@ if('Telonics' %in% mans){
       
       lotek <- out.acct %>%
         rename(tdate = "UploadTimeStamp", SN = 'DeviceID', x = 'Longitude', y = 'Latitude') %>%
-        select(SN, tdate, x, y)
+        dplyr::select(SN, tdate, x, y)
       lotek<-data.frame(lotek)
       
       collar::lotek_logout()
@@ -244,7 +244,7 @@ if('Telonics' %in% mans){
     
     vec <- vecdat %>%
       rename(tdate = "acquisitiontime", SN = 'idcollar', x = 'longitude', y = 'latitude') %>%
-      select(SN, tdate, x, y)
+      dplyr::select(SN, tdate, x, y)
     
     vec$tdate <-as.POSIXct(vec$tdate,
                                        format = paste0("%Y-%m-%d", "T", "%H:%M:%S"),

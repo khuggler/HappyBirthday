@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Katey", "Huggler", , "khuggler@uidaho.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package will download and clean gps data as well as create movement metrics and estimate parturition dates for bighorn sheep
+Description: This package will download and clean gps data as well as create movement metrics and estimate parturition dates for mule deer, bighorn sheep, moose, and elk
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -29,7 +29,6 @@ Imports:
     processx,
     purrr,
     recurse,
-    rgdal,
     rmarkdown,
     sp,
     zoo,
