@@ -14,14 +14,12 @@
 #' @seealso 
 #'  \code{\link[assertthat]{assert_that}}
 #'  \code{\link[sp]{coordinates}}, \code{\link[sp]{is.projected}}
-#'  \code{\link[rgdal]{writeOGR}}
 #'  \code{\link[purrr]{keep}}, \code{\link[purrr]{map}}
 #'  \code{\link[htmlwidgets]{saveWidget}}
 #' @rdname makeMaps
 #' @export 
 #' @importFrom assertthat assert_that
 #' @importFrom sp coordinates proj4string
-#' @importFrom rgdal writeOGR
 #' @importFrom purrr keep walk
 #' @importFrom htmlwidgets saveWidget
 makeMaps<-function(tempdir, gpsdat, id_df){
