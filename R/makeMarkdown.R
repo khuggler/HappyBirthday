@@ -16,10 +16,6 @@
 #' @export 
 makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
   
-  if(spp == "BHS"){
- data(BHS_OneHour, package = "happybirthday")
-  }
-  
   plotdir<-paste0(tempdir, "/", "Plots")
   if(dir.exists(plotdir)){
     fls = dir(plotdir, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
@@ -160,6 +156,10 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       abline(h = mm, col = "blue", lty = 2)
       
       
+      
+      if(spp == "BHS"){
+        data(rf, package = "happybirthday")
+      }
    
       # here need to pick the correct RF model 
       
