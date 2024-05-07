@@ -19,6 +19,9 @@ Does not return any values. This function will save maps of the most recent loca
 \description{
 create maps of most recent locations and movement for bighorn sheep
 }
+\details{
+some details here
+}
 \examples{
 \dontrun{
 if(interactive()){
@@ -29,7 +32,6 @@ if(interactive()){
 \seealso{
 \code{\link[assertthat]{assert_that}}
 \code{\link[sp]{coordinates}}, \code{\link[sp]{is.projected}}
-\code{\link[rgdal]{writeOGR}}
 \code{\link[purrr]{keep}}, \code{\link[purrr]{map}}
 \code{\link[htmlwidgets]{saveWidget}}
 }

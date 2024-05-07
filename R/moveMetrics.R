@@ -3,7 +3,7 @@
 #' @param gpsdat data.frame of gps data from the getData.R function
 #' @param subsetmonth month to start subsetting GPS data. If GPS collars have recently been deployed, suggest using a month early in the year
 #' @return returns a data.frame with rolling statistics of movement metrics
-#' @details 
+#' @details DETAILS
 #' @examples 
 #' \dontrun{
 #' if(interactive()){

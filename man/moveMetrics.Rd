@@ -17,6 +17,9 @@ returns a data.frame with rolling statistics of movement metrics
 \description{
 calculate movement metrics including: movement rate, rolling home range size, residence time, and visitation rate
 }
+\details{
+DETAILS
+}
 \examples{
 \dontrun{
 if(interactive()){

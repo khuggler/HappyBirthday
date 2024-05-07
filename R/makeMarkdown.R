@@ -5,7 +5,7 @@
 #' @param subsetmonth month to start plotting
 #' @param tempdir temporary directory for storing products
 #' @return returns plots for movement metrics in the temporary directory
-#' @details 
+#' @details DETAILS
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
@@ -158,7 +158,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       
       
       if(spp == "BHS"){
-        data(rf, package = "happybirthday")
+        data(bhs_1Hour, package = "happybirthday")
       }
    
       # here need to pick the correct RF model 

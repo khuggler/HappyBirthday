@@ -4,7 +4,7 @@
 #' @param gpsdat data.frame of GPS data
 #' @param id_df lookup table of animal IDs and serial numbers
 #' @return Does not return any values. This function will save maps of the most recent locations in KML and GPS locations as well as the last three days of locations and movement in a leaflet map
-#' @details
+#' @details some details here 
 #' @examples 
 #' \dontrun{
 #' if(interactive()){

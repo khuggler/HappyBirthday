@@ -6,7 +6,7 @@
 \alias{happybirthday-package}
 \title{happybirthday: Estimate movement metrics and create reports for bighorn sheep}
 \description{
-This package will download and clean gps data as well as create movement metrics and estimate parturition dates for bighorn sheep
+This package will download and clean gps data as well as create movement metrics and estimate parturition dates for mule deer, bighorn sheep, moose, and elk
 }
 \author{
 \strong{Maintainer}: Katey Huggler \email{khuggler@uidaho.edu} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})

@@ -21,6 +21,9 @@ returns plots for movement metrics in the temporary directory
 \description{
 create markdown plots for movement metrics
 }
+\details{
+DETAILS
+}
 \examples{
 \dontrun{
 if(interactive()){
