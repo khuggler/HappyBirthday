@@ -69,7 +69,7 @@ lastpoint$Flag<-ifelse(lastpoint$tdate >= cut, 'http://maps.google.com/mapfiles/
 kmlfile<-paste0(savedir, 'LatestLocs.kml')
 kmlname<-'BHS Locations'
 
-lastpoint<-st_as_sf(lastpoint)
+lastpoint<-sf::st_as_sf(lastpoint)
 # maptools::kmlPoints(lastpoint, kmlfile = kmlfile, name = lastpoint$name, icon = lastpoint$Flag, kmlname = kmlname)
 # # plotKML::kml_open(file.name = paste0(savedir, 'LatestLocs.kml'), overwrite = T)
 # # plotKML::kml_layer(lastpoint, 
