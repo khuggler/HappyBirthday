@@ -16,7 +16,9 @@
 #' @export 
 makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
   
- data(rf, package = "happybirthday")
+  if(spp == "BHS"){
+ data(BHS_OneHour, package = "happybirthday")
+  }
   
   plotdir<-paste0(tempdir, "/", "Plots")
   if(dir.exists(plotdir)){
@@ -159,12 +161,20 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       
       
    
+      # here need to pick the correct RF model 
+      
     sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(rf,sub,type='prob')[,1])
-    thresh<-1-0.018
-    slw<-round(24/6)
+    
+    # here need to input the right threshold
+    
+    #thresh<-1-0.018
+    
+    # here need to input the right sliding window 
+    #slw<-round(24/6)
     
     sub[,"MeanThreshold"] <- as.vector(rollapply(zoo(sub[,"pred_prob"]), slw, function(x){mean(sum(as.numeric(x > thresh), na.rm=T), na.rm=T)}, fill=NA))/as.vector(rollapply(zoo(sub[,"pred_prob"]), slw, function(x){length(x[!is.na(x)])}, fill=NA))
     
+    # here need to input the simulrf--sup_fn
     toto<-rle(as.vector(as.numeric(sub[,"MeanThreshold"] > 0.257)))
     
     if(length(which(toto$values==1)) > 0){
@@ -193,7 +203,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       tmp <- toto
       respred[[paste(uni[i], hrs[p], sep="-")]] <- tmp
     }
-  }
+  
   
     
     plot(sub$t_, sub$PredictedProbability, type = "l", ylab = "Probability of parturition",
