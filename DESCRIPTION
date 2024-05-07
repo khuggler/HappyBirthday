@@ -31,6 +31,6 @@ Imports:
     rmarkdown,
     sp,
     zoo
-   Depends: 
+Depends: 
   R (>= 4.0)
 LazyData: true
