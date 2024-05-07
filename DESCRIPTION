@@ -23,7 +23,6 @@ Imports:
     leaflet,
     lubridate,
     mailR,
-    plotKML,
     mapview,
     plyr,
     processx,
@@ -31,8 +30,7 @@ Imports:
     recurse,
     rmarkdown,
     sp,
-    zoo,
-    maptools
-Depends: 
+    zoo
+   Depends: 
   R (>= 4.0)
 LazyData: true
