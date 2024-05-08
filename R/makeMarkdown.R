@@ -14,8 +14,8 @@
 #' }
 #' @rdname makeMarkdown
 #' @export 
-makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
-  
+makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame()){
+  ls(envir = envir)
   require(zoo)
   require(dplyr)
   
@@ -185,7 +185,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       
       Pattern1_list <- mget(ls(envir = .GlobalEnv, pattern = x))[[1]]
       # here need to pick the correct RF model 
-      sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(xxxxxxxxxxxx,sub,type='prob')[,1])
+      sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(Pattern1_list,sub,type='prob')[,1])
       
     
     # here need to input the right threshold
