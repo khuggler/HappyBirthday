@@ -261,14 +261,14 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
     
     plot(subsum$jd, subsum$MeanProb, type = "l", ylab = "Probability of parturition",
          xlab = "Date", main = "Probability of Parturition", cex = 1.25, ylim = c(0, 1.0))
-    lines(subsum$jd, subsum$MaxProb, type = "l")
-    abline(h = fneg, col = "blue", lty = 2)
-    text.col<-c('black', 'green', 'blue', 'red')
+    lines(subsum$jd, subsum$MaxProb, type = "l", lty = "dashed")
+    #abline(h = fneg, col = "blue", lty = 2)
+    text.col<-c('grey', 'green', 'blue', 'red')
     if(nrow(tmp) >= 1){
       tmp$weighted_date<-as.POSIXct(tmp$weighted_date, format = "%Y-%m-%d %H:%M:%S")
       tmp$Date<-as.Date(strftime(tmp$weighted_date, format = "%Y-%m-%d"), '%Y-%m-%d')
       tmp$ProbCat<-ifelse(tmp$propmb >=0 & tmp$propmb <= 0.25, "Low", ifelse(tmp$propmb > 0.25 & tmp$propmb <= 0.5, "Medium", ifelse(tmp$propmb > 0.50 & tmp$propmb <= 0.75, "Medium-High", ifelse(tmp$propmb > 0.75 & tmp$propmb <= 1.0, "High", NA))))
-      abline(v = tmp$Date, col = as.factor(tmp$ProbCat))
+      abline(v = tmp$Date, col = text.col[factor(tmp$ProbCat)], lwd = 2.5)
       legend('topright', legend = c('Low', 'Medium', 'Medium-High', 'High'), col = text.col, lwd = 1)
     }
     
