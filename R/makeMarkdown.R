@@ -183,15 +183,16 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       }
       
       
-      # probability of parturition plot
-      
-      Pattern1_list <- mget(ls(pattern = x))[[1]]
+      Pattern1_list <- mget(ls(envir = .GlobalEnv, pattern = x))[[1]]
       # here need to pick the correct RF model 
-      sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(Pattern1_list,sub,type='prob')[,1])
+      sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(xxxxxxxxxxxx,sub,type='prob')[,1])
+      
     
     # here need to input the right threshold
       
       if(spp == "BHS"){
+        # probability of parturition plot
+        
         data(bhs_thresh, package = "happybirthday")
         thresh<-bhs_thresh[bhs_thresh$tw == sub$Hour[1],]$Threshold
         fneg<-bhs_thresh[bhs_thresh$tw == sub$Hour[1],]$sup_fn
