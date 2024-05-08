@@ -16,6 +16,9 @@
 #' @export 
 makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
   
+  require(zoo)
+  require(dplyr)
+  
   plotdir<-paste0(tempdir, "/", "Plots")
   if(dir.exists(plotdir)){
     fls = dir(plotdir, full.names = TRUE, recursive = TRUE, include.dirs = TRUE)
@@ -249,7 +252,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir){
       }
       toto <- toto[toto$max %in% max(toto$max),][1,]
       tmp <- toto
-      respred[[sub$AID[1]]] <- tmp
+      #respred[[sub$AID[1]]] <- tmp
     }
   
   
