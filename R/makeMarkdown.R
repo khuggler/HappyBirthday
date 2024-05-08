@@ -157,36 +157,38 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.fra
       
     
       if(spp == "BHS"){
-        x<-paste('bhs_', sub$Hour[1], "Hour", sep = "")
-        ds<-c(x)
+        x1<-paste('bhs_', sub$Hour[1], "Hour", sep = "")
+        ds<-c(x1)
         data(list = ds, package = "happybirthday")
       }
    
       
       if(spp == "MD"){
-        x<-paste('md_', sub$Hour[1], "Hour", sep = "")
-        ds<-c(x)
+        x1<-paste('md_', sub$Hour[1], "Hour", sep = "")
+        ds<-c(x1)
         data(list = ds, package = "happybirthday")
       }
       
       
       if(spp == "ELK"){
-        x<-paste('elk_', sub$Hour[1], "Hour", sep = "")
-        ds<-c(x)
+        x1<-paste('elk_', sub$Hour[1], "Hour", sep = "")
+        ds<-c(x1)
         data(list = ds, package = "happybirthday")
       }
       
       if(spp == "MOOSE"){
-        x<-paste('moose_', sub$Hour[1], "Hour", sep = "")
-        ds<-c(x)
+        x1<-paste('moose_', sub$Hour[1], "Hour", sep = "")
+        ds<-c(x1)
         data(list = ds, package = "happybirthday")
       }
+       
       
       
-      Pattern1_list <- mget(ls(envir = .GlobalEnv, pattern = x))[[1]]
+      Pattern1_list <- mget(x = x1, envir = .GlobalEnv)[[1]]
       # here need to pick the correct RF model 
       sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(Pattern1_list,sub,type='prob')[,1])
       
+    
     
     # here need to input the right threshold
       
