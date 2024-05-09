@@ -10,7 +10,7 @@ makeMarkdown(
   subsetmonth,
   tempdir,
   envir = parent.frame(),
-  spp = spp
+  spp
 )
 }
 \arguments{

@@ -34,7 +34,8 @@ runUpdate(
   tzone = "America/Los_Angeles",
   subsetmonth = "02",
   study = NA,
-  markdowndir = NA
+  markdowndir = NA,
+  spp = NA
 )
 }
 \arguments{
@@ -63,6 +64,8 @@ runUpdate(
 \item{study}{Name of study area. Only used for subject in update email}
 
 \item{markdowndir}{directory to the Rmd file for the report}
+
+\item{spp}{character vector of species of interest. Options include BHS, MD, ELK, MOOSE}
 }
 \value{
 final product is email with deliverables
