@@ -15,7 +15,7 @@
 #' }
 #' @rdname makeMarkdown
 #' @export 
-makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame(), spp = spp){
+makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame(), spp){
   ls(envir = envir)
   require(zoo)
   require(dplyr)
