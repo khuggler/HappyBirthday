@@ -28,9 +28,9 @@
 #' @rdname runUpdate
 #' @export 
 #' @importFrom mailR send.mail
-runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA, spp = NA){
+runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA, spp = NA,envir = .GlobalEnv ){
  
-  
+  ls(envir = envir)
   x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, telonic_usrs = telonic_usrs, telonic_pass = telonic_pass, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass, tzone = tzone, subsetmonth = subsetmonth)
   
   # make maps
@@ -41,7 +41,7 @@ runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass
   
   rollmean = move
   
-  makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = .GlobalEnv(), spp){
+  makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = .GlobalEnv, spp){
     ls(envir = envir)
     require(zoo)
     require(dplyr)
