@@ -41,7 +41,7 @@ runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass
   
   rollmean = move
   
-  makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame(), spp){
+  makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = .GlobalEnv(), spp){
     ls(envir = envir)
     require(zoo)
     require(dplyr)
