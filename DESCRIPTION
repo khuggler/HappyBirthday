@@ -24,6 +24,7 @@ Imports:
     lubridate,
     mailR,
     mapview,
+    pdftools,
     plyr,
     processx,
     purrr,
