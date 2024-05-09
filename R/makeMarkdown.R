@@ -184,7 +184,7 @@ makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.fra
        
       
       
-      Pattern1_list <- mget(x = x1, envir = .GlobalEnv)[[1]]
+      Pattern1_list <- mget(x = x1, envir = parent.frame())[[1]]
       # here need to pick the correct RF model 
       sub$pred_prob<-as.numeric(randomForest:::predict.randomForest(Pattern1_list,sub,type='prob')[,1])
       
