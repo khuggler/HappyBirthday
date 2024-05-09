@@ -13,6 +13,7 @@
 #' @param subsetmonth beginning month to subset GPS data to. Default is 2 (February)
 #' @param study Name of study area. Only used for subject in update email
 #' @param markdowndir directory to the Rmd file for the report
+#' @param spp character vector of species of interest. Options include BHS, MD, ELK, MOOSE
 #' @return final product is email with deliverables
 #' @details DETAILS
 #' @examples 
@@ -27,7 +28,7 @@
 #' @rdname runUpdate
 #' @export 
 #' @importFrom mailR send.mail
-runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA){
+runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass = NA, ATS_usrs = NA, ATS_pass = NA, lotek_usrs = NA, lotek_pass = NA, tzone = 'America/Los_Angeles', subsetmonth = "02", study = NA, markdowndir = NA, spp = NA){
  
   x<-happybirthday::getData(id_df = id_df, tempdir = tempdir, veckeys = veckeys, telonic_usrs = telonic_usrs, telonic_pass = telonic_pass, ATS_usrs = ATS_usrs, ATS_pass =ATS_pass, lotek_usrs= lotek_usrs, lotek_pass = lotek_pass, tzone = tzone, subsetmonth = subsetmonth)
   
@@ -39,7 +40,7 @@ runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass
   
   rollmean = move
   
-  happybirthday::makeMarkdown(tempdir = tempdir, rollmean = rollmean, id_df = id_df, subsetmonth = subsetmonth)
+  happybirthday::makeMarkdown(tempdir = tempdir, rollmean = rollmean, id_df = id_df, subsetmonth = subsetmonth, spp = spp)
   
   happybirthday::makeTables(gpsdat = x, id_df = id_df, tempdir = tempdir)
   
@@ -47,7 +48,7 @@ runUpdate<-function(id_df, tempdir, veckeys = NA,telonic_usrs = NA, telonic_pass
   happybirthday::renderMarkdown(tempdir = tempdir, markdowndir = markdowndir)
   
   #attachments. This is going to include the ParturitionMetrics PDF and html files if you want them to send as well.
-  attach = c(paste0(tempdir, "/Products/Last3Days.html"),paste0(tempdir, "/Products/LastTwelve.html"), paste0(tempdir, "/Products/LatestLocs.kml"), paste0(tempdir, "/ParturitionMetrics.pdf"))
+  attach = c(paste0(tempdir, "/Products/Last3Days.html"),paste0(tempdir, "/Products/Last12Hours.html"), paste0(tempdir, "/Products/LatestLocs.kml"), paste0(tempdir, "/ParturitionMetrics.pdf"))
   
   mailR::send.mail(from = from,
                    to = to,
