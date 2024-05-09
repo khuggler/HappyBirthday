@@ -4,7 +4,14 @@
 \alias{makeMarkdown}
 \title{makeMarkdown}
 \usage{
-makeMarkdown(id_df, rollmean, subsetmonth, tempdir)
+makeMarkdown(
+  id_df,
+  rollmean,
+  subsetmonth,
+  tempdir,
+  envir = parent.frame(),
+  spp = spp
+)
 }
 \arguments{
 \item{id_df}{data.frame of lookup table}
@@ -14,6 +21,8 @@ makeMarkdown(id_df, rollmean, subsetmonth, tempdir)
 \item{subsetmonth}{month to start plotting}
 
 \item{tempdir}{temporary directory for storing products}
+
+\item{spp}{character vector of species of interest. Choices include BHS, MD, ELK, MOOSE.}
 }
 \value{
 returns plots for movement metrics in the temporary directory
