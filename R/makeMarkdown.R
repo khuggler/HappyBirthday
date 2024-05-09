@@ -4,6 +4,7 @@
 #' @param rollmean movement data product from the moveMetrics function
 #' @param subsetmonth month to start plotting
 #' @param tempdir temporary directory for storing products
+#' @param spp character vector of species of interest. Choices include BHS, MD, ELK, MOOSE.
 #' @return returns plots for movement metrics in the temporary directory
 #' @details DETAILS
 #' @examples 
@@ -14,7 +15,7 @@
 #' }
 #' @rdname makeMarkdown
 #' @export 
-makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame()){
+makeMarkdown<-function(id_df, rollmean, subsetmonth, tempdir, envir = parent.frame(), spp = spp){
   ls(envir = envir)
   require(zoo)
   require(dplyr)
