@@ -85,11 +85,33 @@ renderMarkdown<-function(tempdir, markdowndir){
     
   }
   
-  c<-list.files(pdffolder,full.names=T)
-  c<-c('pdftk',c,'output',paste0(tempdir,'/ParturitionMetrics.pdf'))
+  concatenate_pdfs <- function(input_filepaths, output_filepath) {
+    # Take the filepath arguments and format them for use in a system command
+    quoted_names <- paste0('"', input_filepaths, '"')
+    file_list <- paste(quoted_names, collapse = " ")
+    output_filepath <- paste0('"', output_filepath, '"')
+    # Construct a system command to pdftk
+    system_command <- paste("pdftk",
+                            file_list,
+                            "cat",
+                            "output",
+                            output_filepath,
+                            sep = " ")
+    # Invoke the command
+    system(command = system_command)
+  }
   
-  c<-paste(c,collapse=' ')
-  system(c)
+  
+  
+  c<-list.files(pdffolder,full.names=T)
+  # pdf_combine(input_filepaths = c, output_filepath = paste0(tempdir,'/ParturitionMetrics.pdf'))
+  # c<-c('pdftk',c,'output',paste0(tempdir,'/ParturitionMetrics.pdf'))
+  # 
+  
+  pdftools::pdf_combine(input = c, output = paste0(tempdir,'/ParturitionMetrics.pdf'))
+  
+  # c<-paste(c,collapse=' ')
+  # system(c)
   
 
 }
